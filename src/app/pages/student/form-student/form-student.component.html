@@ -1,0 +1,95 @@
+<div class="example-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="size-form">
+        <h2 mat-dialog-title>Formulario de Estudiante </h2>
+        <mat-dialog-content>
+            <mat-form-field class="size-input" appearance="outline">
+                <mat-label>Tipo de Identificación</mat-label>
+                <mat-select formControlName="typeId">
+                    @for (item of typesId; track $index) {
+                    <mat-option [value]="item.value">{{item.viewValue}}</mat-option>
+                    }
+                </mat-select>
+                @if (f['typeId'].hasError('required')) {
+                <mat-error>Seleccione un tipo de identificación</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field class="size-input" appearance="outline">
+                <mat-label>Número de Identificación</mat-label>
+                <input matInput type="number" formControlName="numberId">
+                @if (f['numberId'].hasError('required')) {
+                <mat-error>Elnúmero de identificación es <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field class="size-input" appearance="outline">
+                <mat-label>Nombres</mat-label>
+                <input matInput formControlName="firstName">
+                @if (f['firstName'].hasError('required')) {
+                <mat-error>El nombre es <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field class="size-input" appearance="outline">
+                <mat-label>Apellidos</mat-label>
+                <input matInput formControlName="lastName">
+                @if (f['lastName'].hasError('required')) {
+                <mat-error>El nombre es <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+            <!-- [value]="form.get('dateBirth')?.value ? formatDateToDisplay(form.get('dateBirth')?.value) : ''" -->
+            <mat-form-field class="size-input" appearance="outline">
+                <mat-label>Fecha de Nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker" (dateChange)="onDateChange($event)" 
+                 formControlName="dateBirth"
+                 
+                 (focus)="picker.open()"
+                 >
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                @if (f['dateBirth'].hasError('required')) {
+                <mat-error>Seleccione la <strong>fecha de nacimiento</strong></mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field class="size-input" appearance="outline">
+                <mat-label>Edad</mat-label>
+                <input matInput formControlName="age">
+            </mat-form-field>
+            <mat-form-field class="size-input" appearance="outline">
+                <mat-label>Grado en Curso</mat-label>
+                <mat-select formControlName="currentGrade">
+                    @for (item of grades; track $index) {
+                    <mat-option [value]="item.value">{{item.viewValue}}</mat-option>
+                    }
+                </mat-select>
+                @if (f['currentGrade'].hasError('required')) {
+                <mat-error>Seleccione el grado que está cursando <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field class="size-input" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email">
+                @if (f['email'].hasError('required')) {
+                <mat-error>El correo es <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field class="size-input" appearance="outline">
+                <mat-label>Teléfono Fijo</mat-label>
+                <input matInput formControlName="landlinePhone">
+            </mat-form-field>
+            <mat-form-field class="size-input" appearance="outline">
+                <mat-label>Número de Celular</mat-label>
+                <input matInput formControlName="cellPhoneNumber">
+                @if (f['cellPhoneNumber'].hasError('required')) {
+                <mat-error>Numero de celular donde pueda ser contactado <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+
+        </mat-dialog-content>
+        <mat-dialog-actions align="center">
+            <button type="button" mat-raised-button color="warn" class="btn-hover-warn"
+                (click)="closedDialog()">Cerrar</button>
+            <button type="submit" mat-raised-button color="primary" class="btn-hover-primary"
+                cdkFocusInitial>Guardar</button>
+            <!--[mat-dialog-close]="false" -->
+        </mat-dialog-actions>
+
+    </form>
+</div>

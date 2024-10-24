@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="title-container" align="center">
+        <h2>Listado de Estudiantes</h2>
+    </div>
+    <div class="button-container" align="end">
+        <button mat-raised-button color="primary" class="btn-hover-primary" (click)="openForm()">Agregar
+            Estudiante</button>
+    </div>
+    <div class="container">
+        <form (ngSubmit)="filterByAge(startAge.value,endAge.value)" #filterFormAge="ngForm">
+            <mat-form-field appearance="outline">
+                <mat-label>Edad inicial</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input type="number" matInput #startAge required>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Edad final</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input type="number" matInput #endAge required>
+            </mat-form-field>
+            <button type="submit" mat-raised-button color="primary" class="btn-hover-primary">Filtrar Edades</button>
+        </form>
+    </div>
+    <div class="container">
+        <form (ngSubmit)="filterByGrade(grade.value)" #filterForgrade="ngForm">
+        <mat-form-field class="size-input" appearance="outline">
+            <mat-label>Grado en Curso</mat-label>
+            <mat-select #grade>
+                @for (item of grades; track $index) {
+                <mat-option [value]="item.value">{{item.viewValue}}</mat-option>
+                }
+            </mat-select>     
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary" class="btn-hover-primary">Filtrar Grados</button>       
+    </form>
+    </div>
+    <mat-form-field appearance="outline">
+        <mat-label>Filtro</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Digite los caracteres" #input>
+    </mat-form-field>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort matSortDisableClear matSortDirection="desc">
+            <ng-container matColumnDef="idStudent">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.idStudent}} </td>
+            </ng-container>
+            <ng-container matColumnDef="typeId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo ID</th>
+                <td mat-cell *matCellDef="let element"> {{element.typeId}} </td>
+            </ng-container>
+            <ng-container matColumnDef="numberId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Número de Identificación </th>
+                <td mat-cell *matCellDef="let element"> {{element.numberId}} </td>
+            </ng-container>
+            <ng-container matColumnDef="age">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Edad </th>
+                <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+            </ng-container>
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombres </th>
+                <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Apellidos</th>
+                <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="grade">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Grado</th>
+                <td mat-cell *matCellDef="let element"> {{element.currentGrade}} </td>
+            </ng-container>
+            <ng-container matColumnDef="options">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="demo-button-container">
+                        <button mat-raised-button class="demo-button btn-hover-primary" color="primary"
+                            (click)="openForm(element.idStudent)">Editar
+                        </button>
+                        <button mat-raised-button class="demo-button btn-hover-warn" color="warn"
+                            (click)="onDelete(element)">Eliminar
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro "{{input.value}}"</td>
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20,100]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+</div>

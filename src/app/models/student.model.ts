@@ -4,7 +4,7 @@ export interface IStudent{
     numberId:string;
     firstName:string;
     lastName:string;
-    dateBirth:Date;
+    dateBirth:string|null;
     age:number;
     currentGrade:number;
     email:string;

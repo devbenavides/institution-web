@@ -14,6 +14,10 @@ export class GlobalService {
     return this._http.get<IStudent[]>(`${this.urlBase}/student/all`);
   }
 
+  getByIdStudent(id:number):Observable<IStudent>{
+    return this._http.get<IStudent>(`${this.urlBase}/student/${id}`)
+  }
+
   addStudent(student:IStudent):Observable<IStudent>{
     return this._http.post<IStudent>(`${this.urlBase}/student`,student);
   }
@@ -25,4 +29,11 @@ export class GlobalService {
   deleteByIdStudent(id: number):Observable<any>{
     return this._http.delete<any>(`${this.urlBase}/student/${id}`);
   }
+  getByAges(startAge:number,endAge:number):Observable<IStudent[]>{
+    return this._http.get<IStudent[]>(`${this.urlBase}/student/age/${startAge}/${endAge}`);
+  }
+  getByGrade(grade:number):Observable<IStudent[]>{
+    return this._http.get<IStudent[]>(`${this.urlBase}/student/grade/${grade}`);
+  }
+
 }
